@@ -118,7 +118,7 @@ export const SpatialDecoder = {
    *   - MultiLineString -> Coordinate[][]
    *   - MultiPolygon -> Coordinate[][][]
    */
-  decode(input: EwkbInput): any {
+  decode(input: EwkbInput) {
     const buf = normalise(input);
     if (buf === null) return null;
     if (buf.length < 5) return null;
