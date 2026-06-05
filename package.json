@@ -1,0 +1,62 @@
+{
+  "name": "rovex",
+  "version": "1.0.0",
+  "description": "Zero-dependency, ultra-high-performance PostGIS EWKB decoder for Node.js",
+  "keywords": [
+    "postgis",
+    "ewkb",
+    "wkb",
+    "spatial",
+    "geometry",
+    "prisma",
+    "gis",
+    "postgresql",
+    "buffer",
+    "parser",
+    "performance"
+  ],
+  "author": "Temitope Oladiipo",
+  "license": "MIT",
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "type": "module",
+  "main": "./dist/cjs/index.js",
+  "module": "./dist/esm/index.js",
+  "types": "./dist/types/index.d.ts",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/types/index.d.ts",
+        "default": "./dist/esm/index.js"
+      },
+      "require": {
+        "types": "./dist/types/index.d.ts",
+        "default": "./dist/cjs/index.js"
+      }
+    }
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "npm run build:esm && npm run build:cjs && npm run build:types",
+    "build:esm": "tsc -p tsconfig.esm.json",
+    "build:cjs": "tsc -p tsconfig.cjs.json && node -e \"require('fs').writeFileSync('dist/cjs/package.json', JSON.stringify({type:'commonjs'},null,2))\"",
+    "build:types": "tsc -p tsconfig.types.json",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage",
+    "bench": "node --expose-gc bench/bench.js",
+    "lint": "tsc --noEmit -p tsconfig.json",
+    "prepublishOnly": "npm run build && npm run test"
+  },
+  "devDependencies": {
+    "@types/node": "^20.19.41",
+    "@vitest/coverage-v8": "^4.1.8",
+    "typescript": "^5.4.0",
+    "vitest": "^4.1.8"
+  }
+}
